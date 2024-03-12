@@ -11,10 +11,11 @@ import {
   Alert,
 } from "react-native";
 import React, { useState } from "react";
+import colors from "../configs/colors";
 import { auth } from "../config/firebase";
+import Screen from "../components/Screen";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
-const backImage = require("../assets/backImage.png");
+import tw from "twrnc";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
@@ -28,111 +29,126 @@ export default function Login({ navigation }) {
     }
   };
   return (
-    <View style={styles.container}>
-      <Image source={backImage} style={styles.backImage} />
-      <View style={styles.whiteSheet} />
-      <SafeAreaView style={styles.form}>
-        <Text style={styles.title}>Log In</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-          autoFocus={true}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-          textContentType="password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
-          <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
-            {" "}
-            Log In
-          </Text>
-        </TouchableOpacity>
-        <View
-          style={{
-            marginTop: 20,
-            flexDirection: "row",
-            alignItems: "center",
-            alignSelf: "center",
-          }}
-        >
-          <Text style={{ color: "gray", fontWeight: "600", fontSize: 14 }}>
-            Don't have an account?{" "}
-          </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-            <Text style={{ color: "#f57c00", fontWeight: "600", fontSize: 14 }}>
-              {" "}
-              Sign Up
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Otp")}>
-            <Text style={{ color: "#f57c00", fontWeight: "600", fontSize: 14 }}>
-              {" "}
-              Otp
-            </Text>
-          </TouchableOpacity>
+    <Screen style={styles.container}>
+      <View style={styles.wrapper}>
+        <View style={tw`py-4 rounded-2xl`}>
+          <Image style={styles.logo} source={require("../assets/logo.png")} />
         </View>
-      </SafeAreaView>
-    </View>
+        <Text style={styles.wellcomeTo}>
+          Login to Uber <Text style={styles.brand}>Eats</Text>
+        </Text>
+        <View style={styles.form} />
+        <SafeAreaView style={styles.form}>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter email"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+            autoFocus={true}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter password"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={true}
+            textContentType="password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
+            <Text style={styles.Login}>Log In</Text>
+          </TouchableOpacity>
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
+            <Text style={{ color: "gray", fontWeight: "600", fontSize: 14 }}>
+              Don't have an account?{" "}
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+              <Text
+                style={{ color: "#f57c00", fontWeight: "600", fontSize: 14 }}
+              >
+                {" "}
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Otp")}>
+              <Text
+                style={{ color: "#f57c00", fontWeight: "600", fontSize: 14 }}
+              >
+                {" "}
+                Otp
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </View>
+    </Screen>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
+    justifyContent: "center",
   },
-  title: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "orange",
+  wrapper: {
+    paddingHorizontal: 20,
+  },
+  logo: {
+    height: 160,
+    resizeMode: "contain",
     alignSelf: "center",
-    paddingBottom: 24,
+    marginTop: 30,
   },
-  input: {
-    backgroundColor: "#F6F7FB",
-    height: 58,
-    marginBottom: 20,
-    fontSize: 16,
-    borderRadius: 10,
-    padding: 12,
+  wellcomeTo: {
+    fontSize: 23,
+    fontWeight: "700",
+    color: colors.secondary,
+    marginTop: 20,
+    textAlign: "center",
   },
-  backImage: {
-    width: "100%",
-    height: 340,
-    position: "absolute",
-    top: 0,
-    resizeMode: "cover",
-  },
-  whiteSheet: {
-    width: "100%",
-    height: "75%",
-    position: "absolute",
-    bottom: 0,
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 60,
+  brand: {
+    fontSize: 23,
+    color: colors.primary,
+    textAlign: "center",
+    fontWeight: "color: #56af57",
   },
   form: {
-    flex: 1,
-    justifyContent: "center",
-    marginHorizontal: 30,
+    marginTop: 10,
+  },
+  join: {
+    marginTop: 16,
+    textAlign: "center",
+    color: colors.black,
+  },
+  or: {
+    color: colors.gray,
+    textAlign: "center",
+    marginVertical: 20,
   },
   button: {
-    backgroundColor: "#f57c00",
+    backgroundColor: "#000000",
     height: 58,
     borderRadius: 10,
+    color: colors.primary,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
+  },
+  Login: {
+    fontSize: 18,
+    color: "#56af57",
+    textAlign: "center",
+    fontWeight: "500",
   },
 });

@@ -6,6 +6,9 @@ import { onAuthStateChanged } from "firebase/auth";
 //import { onAuthStateChanged } from "firebase/app";
 import { Provider } from "react-redux";
 import { auth } from "./config/firebase";
+import Join from "./screens/JoinScreen";
+import SuccessScreen from "./screens/SucessScreen";
+import DetailsScreen from "./screens/DetailsScreen";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Chat from "./screens/Chat";
@@ -15,6 +18,7 @@ import RideScreen from "./screens/RideScreen";
 import EatsScreen from "./screens/EatsScreen";
 import Otp from "./screens/Otp";
 import WelcomeScreen from "./screens/Welcome";
+import JoinScreen from "./screens/JoinScreen";
 
 const Stack = createStackNavigator();
 const AuthenticatedUserContext = createContext({});
@@ -32,6 +36,11 @@ function AppStack() {
   return (
     <Provider store={store}>
       <Stack.Navigator defaultScreenOptions={{ Home }}>
+        <Stack.Screen
+          name="DetailsScreen"
+          component={DetailsScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Home"
           component={Home}
@@ -52,6 +61,7 @@ function AppStack() {
 function AuthStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Join" component={JoinScreen} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Otp" component={Otp} />

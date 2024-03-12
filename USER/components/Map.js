@@ -2,7 +2,7 @@ import {
   selectDestination,
   selectOrigion,
   setTravelTimeInformation,
-} from "../slices/navSlices";
+} from "../slices/navSlices.js";
 import tw from "twrnc";
 import { Image } from "@rneui/themed";
 import Constants from "expo-constants";
